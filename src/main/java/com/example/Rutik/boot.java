@@ -10,6 +10,4 @@ public class boot {
         return "plz check error";
     }
 
-
-
 }
