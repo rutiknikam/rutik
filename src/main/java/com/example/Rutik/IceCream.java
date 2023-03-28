@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class IceCream {
     @GetMapping("/myicecream")
         public String getData(){
-        return "please purches icecrem from Amul pvt limted";
+        return "please purches icecrem from shree pvt limted";
         }
 }
