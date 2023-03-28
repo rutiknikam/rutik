@@ -4,9 +4,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class IceCream {
-    @GetMapping("/myicecream")
-        public String getData(){
-        return "please purches icecrem from shree pvt limted";
-        }
+public class jenkinsdemo {
+    @GetMapping("/jenkinsdemo")
+    public String getData(){
+        return "please purches icecrem from Amul pvt limted";
+    }
 }
