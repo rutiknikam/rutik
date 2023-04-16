@@ -27,8 +27,8 @@ pipeline {
         stage('Building & Tag Docker Image') {
             steps {
                 echo 'Starting Building Docker Image'
-                sh 'docker build -t rutik044/Rutik .'
-                sh 'docker build -t Rutik .'
+                sh 'docker build -t rutik044/rutik .'
+                sh 'docker build -t rutik .'
                 echo 'Completed  Building Docker Image'
             }
         }
@@ -45,7 +45,7 @@ pipeline {
                  withCredentials([string(credentialsId: 'dockerhubCred', variable: 'dockerhubCred')]){
                  sh 'docker login docker.io -u rutik044 -p ${dockerhubCred}'
                  echo "Push Docker Image to DockerHub : In Progress"
-                 sh 'docker push rutik044/Rutik:latest'
+                 sh 'docker push rutik044/rutik:latest'
                  echo "Push Docker Image to DockerHub : In Progress"
                  sh 'whoami'
                  }
@@ -60,10 +60,10 @@ pipeline {
                  echo "List the docker images present in local"
                  docker images
                  echo "Tagging the Docker Image: In Progress"
-                 docker tag Rutik:latest 559220132560.dkr.ecr.ap-south-1.amazonaws.com/Rutik:latest
+                 docker tag rutik:latest 559220132560.dkr.ecr.ap-south-1.amazonaws.com/rutik:latest
                  echo "Tagging the Docker Image: Completed"
                  echo "Push Docker Image to ECR : In Progress"
-                 docker push 559220132560.dkr.ecr.ap-south-1.amazonaws.com/Rutik:latest
+                 docker push 559220132560.dkr.ecr.ap-south-1.amazonaws.com/rutik:latest
                  echo "Push Docker Image to ECR : Completed"
                  """
                  }
