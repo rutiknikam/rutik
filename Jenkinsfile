@@ -55,28 +55,34 @@ pipeline {
         stage(' Docker Image Push to Amazon ECR') {
            steps {
               script {
-                 withDockerRegistry([credentialsId:'ecr:ap-south-1:ecr-credentials', url:"https://559220132560.dkr.ecr.ap-south-1.amazonaws.com"]){
+                 withDockerRegistry([credentialsId:'ecr:ap-south-1:ecr-Cred', url:"https://764303521386.dkr.ecr.ap-south-1.amazonaws.com/rutik-ms"]){
                  sh """
                  echo "List the docker images present in local"
                  docker images
                  echo "Tagging the Docker Image: In Progress"
-                 docker tag rutik:latest 559220132560.dkr.ecr.ap-south-1.amazonaws.com/rutik:latest
+                 docker tag rutik:latest 764303521386.dkr.ecr.ap-south-1.amazonaws.com/rutik-ms:latest
                  echo "Tagging the Docker Image: Completed"
                  echo "Push Docker Image to ECR : In Progress"
-                 docker push 559220132560.dkr.ecr.ap-south-1.amazonaws.com/rutik:latest
+                 docker push 764303521386.dkr.ecr.ap-south-1.amazonaws.com/rutik-ms:latest
                  echo "Push Docker Image to ECR : Completed"
                  """
                  }
               }
            }
         }
-        stage('Upload Docker Images to Nexus') {
-            steps {
-                echo 'Docker Image Scanning Started'
-                sh 'java -version'
-                echo 'Docker Image Scanning Started'
+      stage('Upload Docker Images to Nexus') {
+                  steps {
+                      script {
+                          withCredentials{[usernamePassword(credentialsId: 'nexus_cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]} {
+                          sh 'docker login http://3.108.215.191:8085/repository/restro-ms/ -u admin -p $(PASSWORD)'
+                          echo "Push Docker Image to Nexus : In Progress"
+                          sh 'docker tag Rutik 3.108.215.191:8085/Rutik:latest'
+                          sh 'docker push 3.108.215.191:8085/Rutik'
+                          echo "Push Docker Image to Nexus : Completed"
+                          }
+                      }
+                 }
             }
-        }
 
-        }
-    }
+       }
+   }
