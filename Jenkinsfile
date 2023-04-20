@@ -70,13 +70,19 @@ pipeline {
               }
            }
         }
-        stage('Upload Docker Images to Nexus') {
-            steps {
-                echo 'Docker Image Scanning Started'
-                sh 'java -version'
-                echo 'Docker Image Scanning Started'
+      stage('Upload Docker Images to Nexus') {
+                  steps {
+                      script {
+                          withCredentials{[usernamePassword(credentialsId: 'nexus_cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]} {
+                          sh 'docker login http://3.108.215.191:8085/repository/restro-ms/ -u admin -p $(PASSWORD)'
+                          echo "Push Docker Image to Nexus : In Progress"
+                          sh 'docker tag Rutik 3.108.215.191:8085/Rutik:latest'
+                          sh 'docker push 3.108.215.191:8085/Rutik'
+                          echo "Push Docker Image to Nexus : Completed"
+                          }
+                      }
+                 }
             }
-        }
 
-        }
-    }
+       }
+   }
