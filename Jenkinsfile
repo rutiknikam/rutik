@@ -74,15 +74,16 @@ pipeline {
                   steps {
                       script {
                           withCredentials{[usernamePassword(credentialsId: 'nexus_cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]} {
-                          sh 'docker login http://172.31.2.36:8085/repository/restro-ms/ -u admin -p $(PASSWORD)'
+                          sh 'docker login http://3.110.221.167:8085/repository/restro-ms/ -u admin -p $(PASSWORD)'
                           echo "Push Docker Image to Nexus : In Progress"
-                          sh 'docker tag Rutik 172.31.2.36:8085/Rutik:latest'
-                          sh 'docker push 172.31.2.36:8085/Rutik'
+                          sh 'docker tag Rutik 3.110.221.167:8085/Rutik:latest'
+                          sh 'docker push 3.110.221.167:8085/Rutik'
                           echo "Push Docker Image to Nexus : Completed"
                           }
                       }
                  }
             }
+
 
        }
    }
